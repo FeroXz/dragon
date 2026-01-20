@@ -1,15 +1,17 @@
 <h1>News</h1>
 <?php if (empty($news)): ?>
-    <div class="card">Noch keine News vorhanden.</div>
+    <div class="card muted">Noch keine News vorhanden.</div>
 <?php else: ?>
-    <?php foreach ($news as $item): ?>
-        <div class="card">
-            <strong><?= htmlspecialchars($item['title']) ?></strong>
-            <p><?= nl2br(htmlspecialchars($item['teaser'])) ?></p>
-            <small><?= htmlspecialchars($item['published_at']) ?></small>
-            <div>
-                <a href="/?page=news&id=<?= (int) $item['id'] ?>">Zur Detailansicht</a>
+    <div class="card-grid">
+        <?php foreach ($news as $item): ?>
+            <div class="card stack">
+                <strong><?= htmlspecialchars($item['title']) ?></strong>
+                <p><?= nl2br(htmlspecialchars($item['teaser'])) ?></p>
+                <small class="meta"><?= htmlspecialchars($item['published_at']) ?></small>
+                <div>
+                    <a class="button button-secondary" href="/?page=news&id=<?= (int) $item['id'] ?>">Zur Detailansicht</a>
+                </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>

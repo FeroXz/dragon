@@ -26,54 +26,77 @@ $actionUrl = $mode === 'edit' && $id !== null
 <html lang="de">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= admin_escape($titleText) ?></title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/app.js" defer></script>
 </head>
 <body>
-    <h1><?= admin_escape($titleText) ?></h1>
+    <header class="topbar">
+        <div class="nav-inner">
+            <a class="brand" href="/?page=home">Dragon CMS</a>
+            <nav class="nav-links">
+                <a href="/?page=admin">Dashboard</a>
+                <a href="/?admin=pages">Seiten</a>
+                <a class="is-active" href="/?admin=news">News</a>
+            </nav>
+            <div class="nav-actions">
+                <a class="button button-secondary" href="/?admin=news">Zur Übersicht</a>
+            </div>
+        </div>
+    </header>
 
-    <?php if (isset($errors['general'])): ?>
-        <p><?= admin_escape($errors['general']) ?></p>
-    <?php endif; ?>
+    <main class="content">
+        <div class="page-header">
+            <h1><?= admin_escape($titleText) ?></h1>
+        </div>
 
-    <form method="post" action="<?= admin_escape($actionUrl) ?>">
-        <div>
-            <label for="title">Titel</label><br>
-            <input id="title" name="title" type="text" value="<?= admin_escape((string) $newsItem['title']) ?>">
-            <?php if (isset($errors['title'])): ?>
-                <p><?= admin_escape($errors['title']) ?></p>
+        <div class="card">
+            <?php if (isset($errors['general'])): ?>
+                <p class="alert"><?= admin_escape($errors['general']) ?></p>
             <?php endif; ?>
+
+            <form method="post" action="<?= admin_escape($actionUrl) ?>">
+                <div class="stack">
+                    <label for="title">Titel</label>
+                    <input id="title" name="title" type="text" value="<?= admin_escape((string) $newsItem['title']) ?>">
+                    <?php if (isset($errors['title'])): ?>
+                        <p class="alert"><?= admin_escape($errors['title']) ?></p>
+                    <?php endif; ?>
+                </div>
+                <div class="stack">
+                    <label for="teaser">Teaser</label>
+                    <textarea id="teaser" name="teaser" rows="3"><?= admin_escape((string) $newsItem['teaser']) ?></textarea>
+                    <?php if (isset($errors['teaser'])): ?>
+                        <p class="alert"><?= admin_escape($errors['teaser']) ?></p>
+                    <?php endif; ?>
+                </div>
+                <div class="stack">
+                    <label for="content">Inhalt</label>
+                    <textarea id="content" name="content" rows="8"><?= admin_escape((string) $newsItem['content']) ?></textarea>
+                    <?php if (isset($errors['content'])): ?>
+                        <p class="alert"><?= admin_escape($errors['content']) ?></p>
+                    <?php endif; ?>
+                </div>
+                <div class="stack">
+                    <label for="published_at">Datum</label>
+                    <input id="published_at" name="published_at" type="date" value="<?= admin_escape((string) $newsItem['published_at']) ?>">
+                    <?php if (isset($errors['published_at'])): ?>
+                        <p class="alert"><?= admin_escape($errors['published_at']) ?></p>
+                    <?php endif; ?>
+                </div>
+                <div class="stack">
+                    <label>
+                        <input type="checkbox" name="is_published" value="1" <?= $newsItem['is_published'] ? 'checked' : '' ?>>
+                        Veröffentlicht
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Speichern</button>
+                    <a class="button button-secondary" href="/?admin=news">Abbrechen</a>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="teaser">Teaser</label><br>
-            <textarea id="teaser" name="teaser" rows="3" cols="60"><?= admin_escape((string) $newsItem['teaser']) ?></textarea>
-            <?php if (isset($errors['teaser'])): ?>
-                <p><?= admin_escape($errors['teaser']) ?></p>
-            <?php endif; ?>
-        </div>
-        <div>
-            <label for="content">Inhalt</label><br>
-            <textarea id="content" name="content" rows="8" cols="60"><?= admin_escape((string) $newsItem['content']) ?></textarea>
-            <?php if (isset($errors['content'])): ?>
-                <p><?= admin_escape($errors['content']) ?></p>
-            <?php endif; ?>
-        </div>
-        <div>
-            <label for="published_at">Datum</label><br>
-            <input id="published_at" name="published_at" type="date" value="<?= admin_escape((string) $newsItem['published_at']) ?>">
-            <?php if (isset($errors['published_at'])): ?>
-                <p><?= admin_escape($errors['published_at']) ?></p>
-            <?php endif; ?>
-        </div>
-        <div>
-            <label>
-                <input type="checkbox" name="is_published" value="1" <?= $newsItem['is_published'] ? 'checked' : '' ?>>
-                Veröffentlicht
-            </label>
-        </div>
-        <div>
-            <button type="submit">Speichern</button>
-            <a href="/?admin=news">Abbrechen</a>
-        </div>
-    </form>
+    </main>
 </body>
 </html>

@@ -8,19 +8,26 @@
     <script src="/assets/app.js" defer></script>
 </head>
 <body>
-    <nav>
-        <a href="/?page=home">Start</a>
-        <a href="/?page=pages">Seiten</a>
-        <a href="/?page=news">News</a>
-        <a href="/?page=admin">Admin</a>
-        <?php if ($isLoggedIn) : ?>
-            <span>Angemeldet als <?= htmlspecialchars($currentUser['username'] ?? '') ?></span>
-            <a href="/?page=logout">Logout</a>
-        <?php else : ?>
-            <a href="/?page=login">Login</a>
-        <?php endif; ?>
-    </nav>
-    <main>
+    <header class="topbar">
+        <div class="nav-inner">
+            <a class="brand" href="/?page=home">Dragon CMS</a>
+            <nav class="nav-links">
+                <a href="/?page=home">Start</a>
+                <a href="/?page=pages">Seiten</a>
+                <a href="/?page=news">News</a>
+                <a href="/?page=admin">Admin</a>
+            </nav>
+            <div class="nav-actions">
+                <?php if ($isLoggedIn) : ?>
+                    <span class="badge">Angemeldet als <?= htmlspecialchars($currentUser['username'] ?? '') ?></span>
+                    <a class="button button-secondary" href="/?page=logout">Logout</a>
+                <?php else : ?>
+                    <a class="button button-secondary" href="/?page=login">Login</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </header>
+    <main class="content">
         <?= $content ?>
     </main>
     <footer class="footer">
