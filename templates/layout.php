@@ -13,7 +13,12 @@
             <a class="brand" href="/?page=home">Dragon CMS</a>
             <nav class="nav-links">
                 <a href="/?page=home">Start</a>
-                <a href="/?page=pages">Seiten</a>
+                <?php foreach ($navigationPages as $navigationPage): ?>
+                    <a href="/?page=page&slug=<?= htmlspecialchars($navigationPage['slug']) ?>">
+                        <?= htmlspecialchars($navigationPage['title']) ?>
+                    </a>
+                <?php endforeach; ?>
+                <a href="/?page=pages">Seitenübersicht</a>
                 <a href="/?page=news">News</a>
                 <a href="/?page=admin">Admin</a>
             </nav>

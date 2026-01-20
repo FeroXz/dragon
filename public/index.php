@@ -31,6 +31,7 @@ $pdo = $database->pdo();
 $seeder = new Seeder($pdo);
 $seeder->seedAdminUser();
 $pageRepository = new PageRepository($pdo);
+$pageRepository->ensureHomePageExists();
 $newsRepository = new NewsRepository($pdo);
 $auth = new Auth($pdo);
 
@@ -53,9 +54,11 @@ function render(string $template, array $data = []): void
 {
     global $auth;
     global $appVersion;
+    global $pageRepository;
 
     $isLoggedIn = $auth->isLoggedIn();
     $currentUser = $auth->currentUser();
+    $navigationPages = $data['navigationPages'] ?? $pageRepository->fetchForNavigation();
     extract($data, EXTR_SKIP);
     ob_start();
     require __DIR__ . '/../templates/' . $template . '.php';
@@ -64,9 +67,15 @@ function render(string $template, array $data = []): void
     require __DIR__ . '/../templates/layout.php';
 }
 
-function homeController(): void
+function homeController(PageRepository $pages): void
 {
-    render('home', ['title' => 'Startseite']);
+    $page = $pages->findBySlug('home');
+
+    render('page', [
+        'title' => $page['title'] ?? 'Startseite',
+        'page' => $page,
+        'isHome' => true,
+    ]);
 }
 
 function pagesController(PageRepository $pages): void
@@ -74,6 +83,41 @@ function pagesController(PageRepository $pages): void
     render('pages', [
         'title' => 'Seitenliste',
         'pages' => $pages->fetchAll(),
+    ]);
+}
+
+function pageController(PageRepository $pages): void
+{
+    $slug = trim((string) ($_GET['slug'] ?? ''));
+
+    if ($slug === 'home') {
+        header('Location: /?page=home');
+        exit;
+    }
+
+    if ($slug === '') {
+        render('page', [
+            'title' => 'Seite nicht gefunden',
+            'page' => null,
+            'notFound' => true,
+        ]);
+        return;
+    }
+
+    $page = $pages->findBySlug($slug);
+
+    if ($page === null) {
+        render('page', [
+            'title' => 'Seite nicht gefunden',
+            'page' => null,
+            'notFound' => true,
+        ]);
+        return;
+    }
+
+    render('page', [
+        'title' => $page['title'] ?? 'Seite',
+        'page' => $page,
     ]);
 }
 
@@ -148,8 +192,11 @@ switch ($page) {
     case 'admin':
         adminController($auth);
         break;
+    case 'page':
+        pageController($pageRepository);
+        break;
     case 'home':
     default:
-        homeController();
+        homeController($pageRepository);
         break;
 }
