@@ -15,8 +15,13 @@
         <a href="/?page=home">Start</a>
         <a href="/?page=pages">Seiten</a>
         <a href="/?page=news">News</a>
-        <a href="/?page=login">Login</a>
         <a href="/?page=admin">Admin</a>
+        <?php if ($isLoggedIn) : ?>
+            <span>Angemeldet als <?= htmlspecialchars($currentUser['username'] ?? '') ?></span>
+            <a href="/?page=logout">Logout</a>
+        <?php else : ?>
+            <a href="/?page=login">Login</a>
+        <?php endif; ?>
     </nav>
     <main>
         <?= $content ?>

@@ -1,6 +1,6 @@
 # Dragon
 
-**Version:** 0.2.0
+**Version:** 0.3.0
 
 ## Überblick
 Ein einfaches PHP-Projekt mit SQLite-Datenbank, Routing und Beispiel-Templates.
@@ -25,3 +25,7 @@ Dann im Browser öffnen: `http://localhost:8000/?page=home`.
 - [x] SQLite-DB-Initialisierung mit Migrationen für `users`, `pages`, `news`.
 - [x] Seitenverwaltung (Admin-CRUD).
 - [x] News-Modul (Liste, Detailansicht, Admin-CRUD inkl. Veröffentlichung/Entwurf).
+- [x] Login/Logout mit Passwort-Hashing und Session-Auth.
+- [x] Admin-Routen mit Auth-Check geschützt.
+- [x] Admin-Dashboard-Ansicht ergänzt.
+- [x] Initialer Admin-User per Seeder erstellt.
