@@ -1,6 +1,6 @@
 # Dragon
 
-**Version:** 0.3.1
+**Version:** 0.4.0 (Quelle: `VERSION`)
 
 ## Überblick
 Ein einfaches PHP-Projekt mit SQLite-Datenbank, Routing und Beispiel-Templates.
@@ -18,7 +18,7 @@ php -S localhost:8000 -t public
 ```
 Dann im Browser öffnen: `http://localhost:8000/?page=home`.
 
-## Funktions-Checkliste
+## Funktionen
 - [x] Projektstruktur (`public/`, `src/`, `data/`, `templates/`) angelegt.
 - [x] Zentrales Einstiegsskript `public/index.php` erstellt.
 - [x] Einfaches Routing mit Controller-Funktionen (Startseite, Seitenliste, News, Login, Adminbereich).
@@ -31,3 +31,4 @@ Dann im Browser öffnen: `http://localhost:8000/?page=home`.
 - [x] Initialer Admin-User per Seeder erstellt.
 - [x] Grundlegendes Layout sowie Formular- und Tabellenstyles ergänzt.
 - [x] UX-Verbesserung per optionalem JS (Confirm-Dialog beim Löschen).
+- [x] Version wird aus der `VERSION`-Datei gelesen und im Footer angezeigt.

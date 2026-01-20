@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 $basePath = dirname(__DIR__);
+$versionFile = $basePath . '/VERSION';
+$appVersion = is_readable($versionFile)
+    ? trim((string) file_get_contents($versionFile))
+    : 'dev';
 
 require_once $basePath . '/src/Database.php';
 require_once $basePath . '/src/Auth.php';
@@ -48,6 +52,7 @@ if ($adminRoute === 'news') {
 function render(string $template, array $data = []): void
 {
     global $auth;
+    global $appVersion;
 
     $isLoggedIn = $auth->isLoggedIn();
     $currentUser = $auth->currentUser();
