@@ -1,13 +1,6 @@
 # Dragon
 
-Version: 0.1.1
-
-## Checkliste
-- [x] Seitenverwaltung
-=======
-# Dragon Demo
-
-**Version:** 0.1.0
+**Version:** 0.2.0
 
 ## Überblick
 Ein einfaches PHP-Projekt mit SQLite-Datenbank, Routing und Beispiel-Templates.
@@ -30,4 +23,5 @@ Dann im Browser öffnen: `http://localhost:8000/?page=home`.
 - [x] Zentrales Einstiegsskript `public/index.php` erstellt.
 - [x] Einfaches Routing mit Controller-Funktionen (Startseite, Seitenliste, News, Login, Adminbereich).
 - [x] SQLite-DB-Initialisierung mit Migrationen für `users`, `pages`, `news`.
-- [x] Dokumentation für Installation, DB-Setup und Start ergänzt.
+- [x] Seitenverwaltung (Admin-CRUD).
+- [x] News-Modul (Liste, Detailansicht, Admin-CRUD inkl. Veröffentlichung/Entwurf).
