@@ -35,10 +35,27 @@ class PageRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function fetchForNavigation(): array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM pages WHERE slug != :slug ORDER BY title ASC');
+        $stmt->execute([':slug' => 'home']);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function findById(int $id): ?array
     {
         $stmt = $this->pdo->prepare('SELECT * FROM pages WHERE id = :id');
         $stmt->execute([':id' => $id]);
+        $page = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $page ?: null;
+    }
+
+    public function findBySlug(string $slug): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM pages WHERE slug = :slug');
+        $stmt->execute([':slug' => $slug]);
         $page = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $page ?: null;
@@ -61,6 +78,22 @@ class PageRepository
         ]);
 
         return (int) $this->pdo->lastInsertId();
+    }
+
+    public function ensureHomePageExists(): void
+    {
+        $existing = $this->findBySlug('home');
+
+        if ($existing !== null) {
+            return;
+        }
+
+        $this->create(
+            'Startseite',
+            'home',
+            'Dies ist die Startseite der Beispielanwendung.' . PHP_EOL
+            . 'Das CMS läuft komplett im Darkmode und bietet klare, moderne Oberflächen.'
+        );
     }
 
     public function update(int $id, string $title, string $slug, string $content): void
