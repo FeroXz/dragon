@@ -1,6 +1,6 @@
 # Dragon
 
-**Version:** 0.4.0 (Quelle: `VERSION`)
+**Version:** 0.5.0 (Quelle: `VERSION`)
 
 ## Überblick
 Ein einfaches PHP-Projekt mit SQLite-Datenbank, Routing und Beispiel-Templates.
@@ -32,3 +32,4 @@ Dann im Browser öffnen: `http://localhost:8000/?page=home`.
 - [x] Grundlegendes Layout sowie Formular- und Tabellenstyles ergänzt.
 - [x] UX-Verbesserung per optionalem JS (Confirm-Dialog beim Löschen).
 - [x] Version wird aus der `VERSION`-Datei gelesen und im Footer angezeigt.
+- [x] Modernes Darkmode-Design für Frontend und Adminbereich umgesetzt.
