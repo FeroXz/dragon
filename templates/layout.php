@@ -23,5 +23,8 @@
     <main>
         <?= $content ?>
     </main>
+    <footer class="footer">
+        Version <?= htmlspecialchars($appVersion) ?>
+    </footer>
 </body>
 </html>
